@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Surgical Simulator Materials Database</title>
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="smd.css" />
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="smd.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+</head>
+<body>
+	<div id="smd">
+		<header id="smd-header">
+			<div id="smd-header-content">
+				<img id="smd-logo" width="241" height="100" title="Surgical Simulator Materials Database" src="images/logo.png" />
+				<h1 id="smd-title">Surgical&nbsp;Simulator Materials&nbsp;Database</h1>
+			</div>
+		</header>
+		<main id="smd-main">
+			<section id="smd-explore">
+				<h2>Explore</h2>
+				<div id="smd-explore-tabs">
+					<span id="smd-tissues-tab" class="active">Tissues</span>
+					<span id="smd-materials-tab">Materials</span>
+					<span id="smd-simulations-tab">Simulations</span>
+				</div>
+				<div id="smd-explore-content">
+					<ul id="smd-tissues-list">Loading...</ul>
+					<ul id="smd-materials-list"></ul>
+					<table id="smd-simulations-table">
+						<thead>
+							<tr>
+								<th>Tissue</th>
+								<th>Materials</th>
+								<th>Developer</th>
+								<th>Actions</th>
+							</tr>
+						</tbody>
+						<tbody></tbody>
+					</table>
+				</div>
+			</section>
+			<section>
+				<h2>About this database</h2>
+				<p>This surgical simulator materials database is a technical resource to aid the construction of surgical simulators with a focus on the various fidelity types needed to learn and practice a surgical procedure, including visual, tactile, auditory, consequence, etc. This resource is an ongoing collaborative effort to document and categorize the development of surgical simulators, especially for use in low-cost settings. The database will provide insight for simulator developers regarding material fidelity in clinical settings.</p>
+			</section>
+			<dialog id="smd-bookmarks-dialog">
+				<div id="smd-bookmarks-dialog-content">
+					<button id="smd-bookmarks-dialog-close-button" class="smd-close">&#x2715;</button>
+					<h2>Bookmarks</h2>
+					<h3>Tissues</h3>
+					<ul id="smd-bookmarks-dialog-tissues-list"></ul>
+					<h3>Materials</h3>
+					<ul id="smd-bookmarks-dialog-materials-list"></ul>
+					<h3>Simulations</h3>
+					<ul id="smd-bookmarks-dialog-simulations-list"></ul>
+					<button id="smd-bookmarks-dialog-download-button">Download all as PDF</button>
+				</div>
+			</dialog>
+			<dialog id="smd-tissue-dialog">
+				<div id="smd-tissue-dialog-content">Loading...</div>
+			</dialog>
+		</main>
+		<button id="smd-bookmarks-button">
+			<span id="smd-bookmarks-button-text"></span>
+			<img src="images/bookmark.svg" width="40" height="40" />
+		</button>
+		<footer id="smd-footer">
+			<a href="">About</a>
+			<a href="">Privacy</a>
+			<a href="">Contact</a>
+			<a href="https://www.appropedia.org/SMD/Submit">Contribute</a>
+			<span>Powered by <a href="https://www.appropedia.org">Appropedia</a></span>
+		</footer>
+	</div>
+</body>
+
+<template id="smd-explore-list-item">
+	<li>
+		<button class="smd-star"></button>
+		<a target="_blank"></a>
+	</li>
+</template>
+
+<template id="smd-tissue-dialog-template">
+	<button class="smd-close">&#x2715;</button>
+	<h2></h2>
+	<img />
+	<p></p>
+	<section>
+		<h3>Simulations</h3>
+		<canvas width="300" height="300"></canvas>
+		<ul></ul>
+	</section>
+</template>
+
+<template id="smd-simulations-row">
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>
+			<button class="smd-star"></button>
+			<a class="smd-lens" target="_blank" title="Visit the page of this simulation">&#x1F50E;</a>
+		</td>
+	</tr>
+</template>
+
+</html>

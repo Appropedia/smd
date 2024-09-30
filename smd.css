@@ -1,0 +1,189 @@
+body {
+	background: #fafafa;
+	color: #002544;
+	font-family: Arial;
+	margin: 0;
+	padding: 1em;
+}
+#smd {
+	margin: auto;
+	width: 800px;
+	max-width: 100%;
+}
+#smd-header {
+	text-align: center;
+	margin-bottom: 2em;
+}
+#smd-header-content {
+	display: inline-block;
+	margin: 1em;
+}
+#smd-logo {
+	float: left;
+	margin: 0 1em 1em 0;
+}
+#smd-title {
+	margin: .5em 0;
+	text-align: left;
+}
+#smd-main {
+}
+#smd-main a {
+	cursor: pointer;
+	text-decoration: underline;
+}
+#smd-main .smd-star {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: large;
+	margin-right: .2em;
+	padding: 0;
+}
+#smd-main .smd-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	float: right;
+	font: inherit;
+	font-size: 2em;
+	margin: 0 0 1em 1em;
+}
+
+#smd-explore-tabs {
+	margin: 1em 0;
+}
+#smd-explore-tabs span {
+	border-left: 1px solid #aaa;
+	cursor: pointer;
+	padding: .5em;
+}
+#smd-explore-tabs span:first-child {
+	border-left: none;
+	padding-left: 0;
+}
+#smd-explore-tabs span.active {
+	font-weight: bold;
+}
+#smd-explore-content {
+	background: #fff;
+	border: 1px solid #aaa;
+	border-radius: 10px;
+	overflow: scroll;
+	padding: 1em;
+}
+#smd-explore-content ul {
+	list-style: none;
+	margin: 0;
+	padding: .5em;
+}
+@media screen and ( min-width: 600px ) {
+	#smd-explore-content ul {
+		column-count: 3;
+	}
+}
+#smd-explore-content table {
+	border-collapse: collapse;
+	width: 100%;
+}
+#smd-explore-content th {
+	padding: 1em;
+	text-align: left;
+}
+#smd-explore-content td {
+	padding: 1em;
+	vertical-align: top;
+}
+#smd-explore-content thead tr,
+#smd-explore-content tbody tr:nth-child( even ) {
+	background: #f0f0f0;
+}
+#smd-explore-content .smd-lens {
+	text-decoration: none;
+}
+#smd-materials-list,
+#smd-simulations-table {
+	display: none;
+}
+
+#smd-bookmarks-button {
+	background: #fff;
+	border: 1px solid #aaa;
+	border-radius: 20px;
+	box-shadow: 2px 2px 2px #aaa;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	font: inherit;
+	line-height: 40px;
+	padding: .5em 1em;
+	position: fixed;
+	right: 30px;
+	bottom: 30px;
+}
+#smd-bookmarks-button img {
+	vertical-align: middle;
+}
+
+#smd-bookmarks-dialog {
+	border: 1px solid #aaa;
+	border-radius: 20px;
+	padding: 0;
+	width: 800px;
+	max-width: 100%;
+}
+#smd-bookmarks-dialog-content {
+	padding: 1em;
+}
+#smd-bookmarks-dialog h3 {
+	margin-bottom: .2em;
+}
+#smd-bookmarks-dialog ul {
+	margin: .5em 0;
+	list-style: none;
+	padding: 0;
+}
+#smd-bookmarks-dialog-download-button {
+	background: #1a73e8;
+	border: none;
+	border-radius: 20px;
+	color: #fff;
+	cursor: pointer;
+	font: inherit;
+	margin: 1em 0;
+	padding: 1em;
+}
+
+#smd-tissue-dialog {
+	border: 1px solid #aaa;
+	border-radius: 20px;
+	padding: 0;
+	width: 800px;
+	max-width: 100%;
+}
+#smd-tissue-dialog-content {
+	padding: 1em;
+}
+#smd-tissue-dialog img,
+#smd-tissue-dialog canvas {
+	clear: right;
+	float: right;
+	margin: 0 0 1em 1em;
+}
+#smd-tissue-dialog ul {
+	list-style: none;
+	padding: 0;
+}
+
+#smd-footer {
+	border-top: 1px solid #aaa;
+	margin: 3em 0;
+	padding: 1em;
+	text-align: center;
+}
+#smd-footer a {
+	margin-right: 10px;
+}
+#smd-footer span {
+	white-space: nowrap;
+}
