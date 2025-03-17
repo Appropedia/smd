@@ -1,5 +1,7 @@
 const SMD = {
 
+	bookmarks: [],
+
 	init: function () {
 
 		// Fetch the data and finish the main page
@@ -16,6 +18,9 @@ const SMD = {
 		}
 		SMD.updateBookmarksButton();
 
+		// Enable installing the app the device supports it
+		window.onbeforeinstallprompt = SMD.enableInstallButton;
+
 		// Bind events
 		const tissuesTab = document.getElementById( 'smd-tissues-tab' );
 		tissuesTab.onclick = SMD.switchTab;
@@ -26,7 +31,7 @@ const SMD = {
 		const bookmarksButton = document.getElementById( 'smd-bookmarks-button' );
 		bookmarksButton.onclick = SMD.openBookmarksDialog;
 
-		// Close modal dialogs when clicking outside or on the close button
+		// Close modal dialogs when clicking outside of them or on the close button
 		const bookmarksDialog = document.getElementById( 'smd-bookmarks-dialog' );
 		bookmarksDialog.onclick = bookmarksDialog.close;
 		const bookmarksDialogContent = document.getElementById( 'smd-bookmarks-dialog-content' );
@@ -134,6 +139,16 @@ const SMD = {
 		SMD.updateBookmarksButton();
 	},
 
+	enableInstallButton: function ( event ) {
+		event.preventDefault();
+		const button = document.getElementById( 'smd-install-app' );
+		button.removeAttribute( 'hidden' );
+		button.onclick = () => {
+			event.prompt();
+			button.setAttribute(  'hidden', '' );
+		};
+	},
+
 	updateBookmarksButton: function () {
 		const count = SMD.bookmarks.length;
 		const text = document.getElementById( 'smd-bookmarks-button-text' );
@@ -199,7 +214,7 @@ const SMD = {
 		Promise.all( [
 			SMD.fetchTissue( tissueName ),
 			SMD.fetchTissueSimulations( tissueName )
-		] ).then( function ( data ) {
+		] ).then( data => {
 			const tissue = data[0];
 			const simulations = data[1];
 
@@ -317,12 +332,13 @@ const SMD = {
 			action: 'query',
 			generator: 'categorymembers',
 			gcmtitle: 'Category:SMD tissues',
+			gcmnamespace: 0,
 			gcmlimit: 'max',
 			prop: 'info',
 			inprop: 'url'
 		} );
 		const url = 'https://www.appropedia.org/w/api.php?' + params.toString();
-		return fetch( url ).then( response => response.json() ).then( function ( response ) {
+		return fetch( url ).then( response => response.json() ).then( response => {
 			const results = response.query.pages;
 			const tissues = [];
 			for ( const result of results ) {
@@ -354,7 +370,7 @@ const SMD = {
 			inprop: 'url'
 		} );
 		const url = 'https://www.appropedia.org/w/api.php?' + params.toString();
-		return fetch( url ).then( response => response.json() ).then( function ( response ) {
+		return fetch( url ).then( response => response.json() ).then( response => {
 			const results = response.query.pages;
 			const materials = [];
 			for ( const result of results ) {
@@ -391,7 +407,7 @@ const SMD = {
 			printouts: printouts.join( '|' )
 		} );
 		const url = 'https://www.appropedia.org/w/api.php?' + params.toString();
-		return fetch( url ).then( response => response.json() ).then( function ( response ) {
+		return fetch( url ).then( response => response.json() ).then( response => {
 			const results = response.query.results;
 			const simulations = [];
 			for ( const [ key, result ] of Object.entries( results ) ) {
@@ -406,7 +422,7 @@ const SMD = {
 				simulations.push( simulation );
 			}
 			// Sort alphabetically by tissue
-			simulations.sort( function ( a, b ) {
+			simulations.sort( ( a, b ) => {
 				return ( a.tissue < b.tissue ) ? -1 : ( a.tissue > b.tissue ) ? 1 : 0;
 			} );
 			SMD.simulations = simulations;
@@ -427,7 +443,7 @@ const SMD = {
 			exintro: true
 		} );
 		const url = 'https://www.appropedia.org/w/api.php?' + params.toString();
-		return fetch( url ).then( response => response.json() ).then( function ( response ) {
+		return fetch( url ).then( response => response.json() ).then( response => {
 			const page = response.query.pages[0];
 			const tissue = {
 				name: tissueName,
@@ -461,7 +477,7 @@ const SMD = {
 			conditions: conditions.join( '|' ),
 			printouts: printouts.join( '|' )
 		} ).toString();
-		return fetch( 'https://www.appropedia.org/w/api.php?' + params ).then( response => response.json() ).then( function ( response ) {
+		return fetch( 'https://www.appropedia.org/w/api.php?' + params ).then( response => response.json() ).then( response => {
 			const results = response.query.results;
 			const simulations = [];
 			for ( const [ key, result ] of Object.entries( results ) ) {
