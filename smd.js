@@ -35,13 +35,13 @@ const SMD = {
 		const bookmarksDialog = document.getElementById( 'smd-bookmarks-dialog' );
 		bookmarksDialog.onclick = bookmarksDialog.close;
 		const bookmarksDialogContent = document.getElementById( 'smd-bookmarks-dialog-content' );
-		bookmarksDialogContent.onclick = ( event ) => event.stopPropagation();
+		bookmarksDialogContent.onclick = event => event.stopPropagation();
 		const bookmarksDialogCloseButton = document.getElementById( 'smd-bookmarks-dialog-close-button' );
 		bookmarksDialogCloseButton.onclick = () => bookmarksDialog.close();
 		const tissueDialog = document.getElementById( 'smd-tissue-dialog' );
 		tissueDialog.onclick = tissueDialog.close;
 		const tissueDialogContent = document.getElementById( 'smd-tissue-dialog-content' );
-		tissueDialogContent.onclick = ( event ) => event.stopPropagation();
+		tissueDialogContent.onclick = event => event.stopPropagation();
 	},
 
 	finishMainPage: function () {
