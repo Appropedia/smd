@@ -98,8 +98,9 @@ body {
 #smd-explore-content tbody tr:nth-child( even ) {
 	background: #f0f0f0;
 }
-#smd-explore-content .smd-lens {
-	text-decoration: none;
+#smd-explore-content .smd-external img {
+	width: 14px;
+	height: 14px;
 }
 #smd-materials-list,
 #smd-simulations-table {
