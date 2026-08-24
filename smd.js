@@ -479,7 +479,14 @@ const SMD = {
 		const titles = SMD.bookmarks.map( bookmark => bookmark.title );
 
 		// Generate the PDF
-		const url = 'https://www.appropedia.org/w/rest.php/appropedia/pdf?pages=' + titles.join( ',' );
+
+		const query = {
+			title: 'Surgical Simulator Materials Database',
+			logo: new URL( 'images/logo.png', document.baseURI ).href,
+			pages: titles.join( ',' )
+		};
+		const queryString = new URLSearchParams( query ).toString();
+		const url = 'https://www.appropedia.org/w/rest.php/appropedia/pdf?' + queryString;		
 		const result = await fetch( url );
 		const bytes = await result.arrayBuffer();
 
