@@ -2,7 +2,7 @@ const SMD = {
 
 	bookmarks: [],
 
-	init: function () {
+	init() {
 
 		// Fetch the data and finish the main page
 		Promise.all( [
@@ -46,7 +46,7 @@ const SMD = {
 		tissueDialogContent.onclick = event => event.stopPropagation();
 	},
 
-	finishMainPage: function () {
+	finishMainPage() {
 		const tissuesList = document.getElementById( 'smd-tissues-list' );
 		tissuesList.innerHTML = '';
 		for ( const tissue of SMD.tissues ) {
@@ -84,7 +84,7 @@ const SMD = {
 		}
 	},
 
-	finishStar: function ( element, data ) {
+	finishStar( element, data ) {
 		const star = element.querySelector( '.smd-star' );
 		const index = SMD.bookmarks.findIndex( bookmark => bookmark.href === data.href );
 		star.innerHTML = index === -1 ? '&#9734;' : '&#9733;';
@@ -92,7 +92,7 @@ const SMD = {
 		star.onclick = () => SMD.toggleBookmark( event, data );
 	},
 
-	switchTab: function ( event ) {
+	switchTab( event ) {
 		const tab = event.target;
 
 		const tissuesTab = document.getElementById( 'smd-tissues-tab' );
@@ -110,7 +110,7 @@ const SMD = {
 		simulationsTable.style.display = tab.id === 'smd-simulations-tab' ? 'block' : 'none';
 	},
 
-	toggleBookmark: function ( event, data ) {
+	toggleBookmark( event, data ) {
 
 		// Toggle the star
 		const star = event.target;
@@ -133,7 +133,7 @@ const SMD = {
 		SMD.updateBookmarksButton();
 	},
 
-	enableInstallButton: function ( event ) {
+	enableInstallButton( event ) {
 		event.preventDefault();
 		const button = document.getElementById( 'smd-install-app' );
 		button.removeAttribute( 'hidden' );
@@ -143,13 +143,13 @@ const SMD = {
 		};
 	},
 
-	updateBookmarksButton: function () {
+	updateBookmarksButton() {
 		const count = SMD.bookmarks.length;
 		const text = document.getElementById( 'smd-bookmarks-button-text' );
 		text.textContent = count + ' bookmark' + ( count === 1 ? '' : 's' );
 	},
 
-	openBookmarksDialog: function () {
+	openBookmarksDialog() {
 
 		// Show the dialog
 		const dialog = document.getElementById( 'smd-bookmarks-dialog' );
@@ -193,7 +193,7 @@ const SMD = {
 		}
 	},
 
-	openTissueDialog: async function ( event ) {
+	async openTissueDialog( event ) {
 		const tissueName = event.target.textContent;
 
 		// Show the dialog
@@ -265,7 +265,7 @@ const SMD = {
 		}
 	},
 
-	updateTissueRadar: function ( radar, simulations ) {
+	updateTissueRadar( radar, simulations ) {
 		let visual = 0;
 		let tactile = 0;
 		let manipulation = 0;
@@ -318,7 +318,7 @@ const SMD = {
 		} );
 	},
 
-	fetchTissues: async function () {
+	async fetchTissues() {
 		const params = {
 			action: 'query',
 			generator: 'search',
@@ -336,7 +336,7 @@ const SMD = {
 				href: result.fullurl,
 				title: result.title,
 				text: result.title.replace( 'SMD/Tissues/', '' )
-			}
+			};
 			tissues.push( tissue );
 		}
 		// Sort alphabetically by text
@@ -346,7 +346,7 @@ const SMD = {
 		SMD.tissues = tissues;
 	},
 	
-	fetchMaterials: async function () {
+	async fetchMaterials() {
 		const params = {
 			action: 'query',
 			generator: 'search',
@@ -374,7 +374,7 @@ const SMD = {
 		SMD.materials = materials;
 	},
 
-	fetchSimulations: async function () {
+	async fetchSimulations() {
 		const conditions = [
 			'Category:SMD simulations',
 			'SMD reviewed::true'
@@ -392,7 +392,7 @@ const SMD = {
 		const data = await SMD.get( params );
 		const results = data.query.results;
 		const simulations = [];
-		for ( const [ key, result ] of Object.entries( results ) ) {
+		for ( const result of Object.values( results ) ) {
 			const simulation = {
 				type: 'simulation',
 				href: result.fullurl,
@@ -401,7 +401,7 @@ const SMD = {
 				tissue: result.printouts['SMD tissue'],
 				material: result.printouts['SMD material'],
 				developer: result.printouts['SMD developer']
-			}
+			};
 			simulations.push( simulation );
 		}
 		// Sort alphabetically by tissue
@@ -411,7 +411,7 @@ const SMD = {
 		SMD.simulations = simulations;
 	},
 
-	fetchTissue: async function ( tissueName ) {
+	async fetchTissue( tissueName ) {
 		const params = {
 			action: 'query',
 			titles: 'SMD/Tissues/' + tissueName,
@@ -433,7 +433,7 @@ const SMD = {
 		return tissue;
 	},
 
-	fetchTissueSimulations: async function ( tissue ) {
+	async fetchTissueSimulations( tissue ) {
 		const conditions = [
 			'Category:SMD simulations',
 			'SMD tissue::' + tissue,
@@ -455,7 +455,7 @@ const SMD = {
 		const data = await SMD.get( params );
 		const results = data.query.results;
 		const simulations = [];
-		for ( const [ key, result ] of Object.entries( results ) ) {
+		for ( const result of Object.values( results ) ) {
 			const simulation = {
 				type: 'simulation',
 				text: result.displaytitle,
@@ -467,7 +467,7 @@ const SMD = {
 		return simulations;
 	},
 
-	downloadPDF: async function () {
+	async downloadPDF() {
 
 		// Disable the button to prevent multiple clicks and hint the user that something is happening
 		const button = this;
@@ -479,7 +479,7 @@ const SMD = {
 		const titles = SMD.bookmarks.map( bookmark => bookmark.title );
 
 		// Generate the PDF
-		const url = 'https://www.appropedia.org/scripts/generatePDF.php?pages=' + titles.join( ',' );
+		const url = 'https://www.appropedia.org/w/rest.php/appropedia/pdf?pages=' + titles.join( ',' );
 		const result = await fetch( url );
 		const bytes = await result.arrayBuffer();
 
@@ -502,7 +502,7 @@ const SMD = {
 	/**
 	 * Helper method to do GET requests to the Appropedia Action API
 	 */
-	get: async function ( query ) {
+	async get( query ) {
 		query.origin = '*';
 		query.format = 'json';
 		query.formatversion = 2;
