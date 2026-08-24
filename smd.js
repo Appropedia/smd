@@ -340,7 +340,7 @@ const SMD = {
 			tissues.push( tissue );
 		}
 		// Sort alphabetically by text
-		tissues.sort( function ( a, b ) {
+		tissues.sort( ( a, b ) => {
 			return ( a.text < b.text ) ? -1 : ( a.text > b.text ) ? 1 : 0;
 		} );
 		SMD.tissues = tissues;
@@ -368,7 +368,7 @@ const SMD = {
 			materials.push( material );
 		}
 		// Sort alphabetically by text
-		materials.sort( function ( a, b ) {
+		materials.sort( ( a, b ) => {
 			return ( a.text < b.text ) ? -1 : ( a.text > b.text ) ? 1 : 0;
 		} );
 		SMD.materials = materials;
